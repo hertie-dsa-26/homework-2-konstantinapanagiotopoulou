@@ -40,3 +40,22 @@ def calculate():
             return render_template('calculator.html', printed_result="You cannot divide by zero")
 
     return render_template('calculator.html')
+
+@app.route('/circle', methods=['GET', 'POST'])
+def calculate_circle():
+    if request.method == 'POST':
+        radius = request.form['radius']
+
+        try:
+            radius = convert_to_float(value=radius)
+            circle = Circle(radius)
+            result = circle.perimeter()
+            return render_template('circle.html', printed_result=str(result))
+        except ValueError:
+            return render_template('circle.html', printed_result="Cannot perform operation with this input")
+
+    return render_template('circle.html')
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
